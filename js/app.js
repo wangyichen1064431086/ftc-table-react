@@ -16,34 +16,35 @@ class App extends React.Component {
         "field":"Cheese",
         "fieldName": "Cheese",
         "fieldSubName": "Type of cheese",
-        "dataType": "",
+        "dataIsNumberic": false,
         "disableSort": false
       },
       {
         "field":"Bread",
         "fieldName": "Bread",
         "fieldSubName": "Type of bread",
-        "dataType": "",
+        "dataIsNumberic": false,
         "disableSort": false
       },
       {
         "field": "CostGBP",
         "fieldName": "Cost",
         "fieldSubName": "(GBP)",
-        "dataType": "numeric",
+        "dataIsNumberic": true,
         "disableSort": false
       },
       {
         "field":"CostEUR",
         "fieldName": "Cost",
         "fieldSubName":"(EUR)",
-        "dataType":"numeric",
+        "dataIsNumberic": true,
         "disableSort": false
       }
     ];
 
     return (
-      <FtcTable className="ftc-table" fieldsInfo={fieldsInfoForTable}>
+      <FtcTable className="table--base" fieldsInfo={fieldsInfoForTable} >
+        <TableCaption position="top">The Caption Table</TableCaption>
         <TableBodyRow defaultOrder="0" data={
           {
             "Cheese": "cheddar",
@@ -68,6 +69,8 @@ class App extends React.Component {
             "CostEUR":""
           }
         }/>
+        <TableCaption position="bottom">The Bottom Caption</TableCaption>
+
       </FtcTable>
     );
   }

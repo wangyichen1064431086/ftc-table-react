@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import CSSModules from 'react-css-modules';
-import styles from '../css/style.scss';
+import ftctable from '../css/ftctable.scss';
 
 @immutableRenderDecorator
-@CSSModules(styles, { allowMultiple: true })
+@CSSModules(ftctable, { allowMultiple: true })
 class TableBody extends React.Component {
   static propTypes = {
     rows: PropTypes.object,

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import CSSModules from 'react-css-modules';
-import styles from '../css/style.scss';
+import ftctable from '../css/ftctable.scss';
 
 @immutableRenderDecorator
-@CSSModules(styles, { allowMultiple: true })
+@CSSModules(ftctable, { allowMultiple: true })
 class TableHead extends React.Component {
   static propTypes = {
     fields:PropTypes.arrayOf(
@@ -42,7 +42,7 @@ class TableHead extends React.Component {
         onClick={this.props.onClickToSort.bind(this, keyValue)}
         >
           {field.fieldName}
-          <span styleName="subfield">  
+          <span styleName="headsub-cell">  
             {/*
             如果不使用react-css-module而使用普通的CSSSModule，那么组件的样式要这么写:className={styles.subfield},即每个样式的引入都要加上styles.前缀，而使用react-css-module则不用写styles前缀
             react-css-module库中: styleName对应局部class, className对应全局class

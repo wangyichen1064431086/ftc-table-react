@@ -14,7 +14,7 @@
   vertical-align: top;
 }
 
-.ftc-table {
+.table--base {//节点名--状态名
   background:transparent;
   color:#33302e;
   border-collapse: collapse;
@@ -54,14 +54,16 @@
     }
     
   }
+
+  
+  //Cell :必须要写在table节点内部，否则层叠优先级不够
+  .headsub-cell {
+    font-weight:normal;
+    font-size:16px;
+  }
+  
+  .body-cell--numeric {
+    text-align: right;
+  }
 }
 
-//Cell
-.subfield {
-  font-weight:normal;
-  font-size:16px;
-}
-
-.numeric {
-  text-align: right;
-}
