@@ -4,6 +4,7 @@
   "description": "The react version for ftc-table",
   "main": " ",
   "scripts": {
+    "start":"cross-env NODE_ENV=development node server.js",
     "test": "jest"
   },
   "repository": {

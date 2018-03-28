@@ -16,9 +16,11 @@ class TableHead extends React.Component {
         fieldName: PropTypes.string,
         fieldSubName:PropTypes.string,
         //sortType:PropTypes.oneOf(['none','ascending','descending']),
-        dataIsNumberic:PropTypes.bool
+        dataIsNumberic:PropTypes.bool,
+        disableSort: PropTypes.bool
       })
-    )
+    ),
+    onClickToSort: PropTypes.func
   }
   constructor(props) {
     super(props);
@@ -30,12 +32,14 @@ class TableHead extends React.Component {
       if(!field) {
         return;
       }
+      const keyValue = field.field;
       return (
         <th 
-        aria-sort="none"
-        data-isNumberic={field.dataIsNumberic}
-        key={field.field}
-        onClick={this.props.onClickToSort.bind(this, field.field)}
+        aria-sort="none" /*初始aria-sort就为none */
+        data-isnumberic={field.dataIsNumberic}
+        data-disablesort={field.disableSort}
+        key={keyValue}
+        onClick={this.props.onClickToSort.bind(this, keyValue)}
         >
           {field.fieldName}
           <span styleName="subfield">  

@@ -22,9 +22,10 @@ class FtcTable extends React.Component {
       PropTypes.shape({
         field: PropTypes.string,
         fieldName: PropTypes.string,
-        fieldSubName:PropTypes.string,
+        fieldSubName: PropTypes.string,
         //sortType:PropTypes.oneOf(['none','ascending','descending']),
-        dataIsNumberic:PropTypes.bool
+        dataIsNumberic: PropTypes.bool,
+        disableSort: PropTypes.bool
       })
     )
   }
@@ -53,8 +54,9 @@ class FtcTable extends React.Component {
   renderTableBody() {
     return (
       <TableBody 
-        key="tableBOdy"
-        units={this.immChildren}
+        key="tableBody"
+        expectedFields={this.props.fieldsInfo}
+        rows={this.immChildren}
       />
     )
   }
@@ -62,7 +64,7 @@ class FtcTable extends React.Component {
   render() {
     const { className } = this.props;
     return (
-      <table className={classes}>
+      <table styleName={className}>
         {this.renderTableHead()}
         {this.renderTableBody()}
       </table>

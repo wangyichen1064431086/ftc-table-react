@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import FtcTable from './FtcTable';
-import TableUnit from './TableUnit';
+import TableBodyRow from './TableBodyRow';
 
 
 class App extends React.Component {
@@ -11,34 +11,40 @@ class App extends React.Component {
     super(props);
   }
   render() {
+    const fieldsInfoForTable = [
+      {
+        "field":"Cheese",
+        "fieldName": "Cheese",
+        "fieldSubName": "Type of cheese",
+        "dataType": "",
+        "disableSort": false
+      },
+      {
+        "field":"Bread",
+        "fieldName": "Bread",
+        "fieldSubName": "Type of bread",
+        "dataType": "",
+        "disableSort": false
+      },
+      {
+        "field": "CostGBP",
+        "fieldName": "Cost",
+        "fieldSubName": "(GBP)",
+        "dataType": "numeric",
+        "disableSort": false
+      },
+      {
+        "field":"CostEUR",
+        "fieldName": "Cost",
+        "fieldSubName":"(EUR)",
+        "dataType":"numeric",
+        "disableSort": false
+      }
+    ];
+
     return (
-      <FtcTable className="ftc-table" fieldsInfo={[
-        {
-          "field":"Cheese",
-          "fieldName": "Cheese",
-          "fieldSubName":"Type of cheese",
-          "dataType":""
-        },
-        {
-          "field":"Bread",
-          "fieldName": "Bread",
-          "fieldSubName":"Type of bread",
-          "dataType":""
-        },
-        {
-          "field": "CostGBP",
-          "fieldName": "Cost",
-          "fieldSubName":"(GBP)",
-          "dataType":"numeric"
-        },
-        {
-          "field":"CostEUR",
-          "fieldName": "Cost",
-          "fieldSubName":"(EUR)",
-          "dataType":"numeric"
-        }
-      ]}>
-        <TableUnit order="0" data={
+      <FtcTable className="ftc-table" fieldsInfo={fieldsInfoForTable}>
+        <TableBodyRow defaultOrder="0" data={
           {
             "Cheese": "cheddar",
             "Bread": "rye",
@@ -46,7 +52,7 @@ class App extends React.Component {
             "CostEUR":1.56
           }
         }/>
-        <TableUnit order="1" data={
+        <TableBodyRow defaultOrder="1" data={
           {
             "Cheese": "stilton",
             "Bread": "wholemeal",
@@ -54,7 +60,7 @@ class App extends React.Component {
             "CostEUR":1.85
           }
         }/>
-        <TableUnit order="2" data={
+        <TableBodyRow defaultOrder="2" data={
           {
             "Cheese": "red leicester",
             "Bread": "white",
@@ -63,6 +69,11 @@ class App extends React.Component {
           }
         }/>
       </FtcTable>
-    )
+    );
   }
 }
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
