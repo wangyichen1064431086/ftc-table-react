@@ -10,17 +10,18 @@ import ftctable from '../css/ftctable.scss';
 @CSSModules(ftctable, { allowMultiple: true })
 class TableCaption extends React.Component {
   static propTypes = {
-    location: PropTypes.oneOf(['top','bottom'])
-  }
-  static defaultProps = {
-    location: 'top'
+    style: PropTypes.string,
+    children: PropTypes.string
   }
 
   render() {
+    const { style, children} = this.props;
     return (
-      <caption>
-        
+      <caption styleName={style}>
+        {children}
       </caption>
     )
   }
 }
+
+export default TableCaption;

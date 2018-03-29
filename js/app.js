@@ -41,10 +41,13 @@ class App extends React.Component {
         "disableSort": false
       }
     ];
-
+    const captionsInfoForTable = {
+      top: "Top Caption",
+      bottom: "Bottom Caption"
+    }
     return (
-      <FtcTable className="table--base" fieldsInfo={fieldsInfoForTable} >
-        <TableCaption position="top">The Caption Table</TableCaption>
+      <FtcTable className="table--base" fieldsInfo={fieldsInfoForTable} captionsInfo={captionsInfoForTable} >
+        {/*<TableCaption position="top">The Caption Table</TableCaption>*/}
         <TableBodyRow defaultOrder="0" data={
           {
             "Cheese": "cheddar",
@@ -69,8 +72,9 @@ class App extends React.Component {
             "CostEUR":""
           }
         }/>
+        {/*
         <TableCaption position="bottom">The Bottom Caption</TableCaption>
-
+        */}
       </FtcTable>
     );
   }

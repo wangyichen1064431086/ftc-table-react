@@ -40,6 +40,7 @@ class TableBodyRow extends React.Component {
       return <td styleName={tdClass} key={fieldKey}>{content}</td>
     })
   }
+
   render() {
     return (
       <tr>

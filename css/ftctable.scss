@@ -65,5 +65,27 @@
   .body-cell--numeric {
     text-align: right;
   }
+
+  //Caption:
+  caption {
+    font-family: MetricWeb,sans-serif;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #b3a9a0;
+    border-top: 2px solid #b3a9a0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .caption--top {
+    caption-side: top;
+    margin-bottom:-2px;
+  }
+  .caption--bottom {
+    caption-side: bottom;
+    margin-bottom:0;
+  }
 }
 
