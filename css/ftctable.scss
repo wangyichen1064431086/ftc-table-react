@@ -115,3 +115,15 @@
     border-right: 1px solid #ccc1b7;
   }
 }
+
+.table--horizontal-lines {
+  tr:not(:last-child) {//tr中的非最后一个元素
+    border-bottom: 1px solid #ccc1b7;
+  }
+}
+
+.table--responsive-overflow {//此样式就是表格的宽度至少为500px,再小就直接挡住边缘
+  margin:0;//普通ftc-table是margin: 0 0 20px;这个是因为width直接可能超出范围，所以左右也为0吧
+  min-width: 500px;
+  width: 100%;
+}

@@ -44,9 +44,16 @@ class App extends React.Component {
     const captionsInfoForTable = {
       top: "Top Caption",
       bottom: "Bottom Caption"
-    }
+    };
+    const styleListValue = [
+      "table--row-stripes",
+      "table--vertical-lines",
+      "table--horizontal-lines",
+      "table--responsive-overflow"
+    ];
+
     return (
-      <FtcTable styleList={["table--row-stripes","table--vertical-lines"]} fieldsInfo={fieldsInfoForTable} captionsInfo={captionsInfoForTable} >
+      <FtcTable styleList={styleListValue} fieldsInfo={fieldsInfoForTable} captionsInfo={captionsInfoForTable} >
         {/*<TableCaption position="top">The Caption Table</TableCaption>*/}
         <TableBodyRow defaultOrder="0" data={
           {
