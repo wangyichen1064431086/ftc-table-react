@@ -108,3 +108,10 @@
   }
 }
 
+
+.table--vertical-lines {
+  th:not(:last-child):not(:first-child), td:not(:last-child):not(:first-child) {
+    border-left: 1px solid #ccc1b7;
+    border-right: 1px solid #ccc1b7;
+  }
+}

@@ -33,7 +33,24 @@ class FtcTable extends React.Component {
     captionsInfo: PropTypes.shape({
       top:PropTypes.string,
       bottom: PropTypes.string
-    })
+    }),
+    styleList: PropTypes.oneOfType([ //可以是其中一个样式名，也可以是其中若干样式名的组合
+      PropTypes.arrayOf(PropTypes.oneOf([
+        'table--row-stripes', 
+        'table--horizontal-lines', 
+        'table--vertical-lines',
+        'table--responsive-flat', 
+        'table--responsive-overflow','table--responsive-scroll'
+      ])),
+      PropTypes.oneOf([
+        'table--row-stripes', 
+        'table--horizontal-lines', 
+        'table--vertical-lines',
+        'table--responsive-flat', 
+        'table--responsive-overflow',
+        'table--responsive-scroll'
+      ])
+    ])
     
     //caption:PropTypes.oneOf(['top','bottom','topandbottom','none'])
   }
@@ -116,15 +133,11 @@ class FtcTable extends React.Component {
   }
 
   render() {
-    const { className,captionsInfo } = this.props;
+    const { styleList,captionsInfo } = this.props;
 
    // const renderTopCaption = caption ==='top' || caption === 'topandbottom';
     //const renderBottomCaption = caption ==='bottom' || caption === 'topandbottom';
-    const resultStyleName = classnames({
-      'table--base': true,
-      [className]: true,
-      
-    });
+    const resultStyleName = classnames('table--base', styleList);//注意classnames拼接数组和对象的不同方式
     return (
       <table styleName={resultStyleName}>
         { 
