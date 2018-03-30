@@ -11,7 +11,7 @@ import ftctable from '../css/ftctable.scss';
 class TableCaption extends React.Component {
   static propTypes = {
     style: PropTypes.string,
-    children: PropTypes.string
+    children: PropTypes.node //children应该是PropTypes.node或PropTypes.arrayOf(PropTypes.node),或PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]), oneOf和oneOfType不一样
   }
 
   render() {

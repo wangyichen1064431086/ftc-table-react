@@ -10,7 +10,7 @@ import ftctable from '../css/ftctable.scss';
 @CSSModules(ftctable, { allowMultiple: true })
 class TableBody extends React.Component {
   static propTypes = {
-    rows: PropTypes.object,
+    rows: PropTypes.object, //Seq之后类型变为object, Seq之前是Props.node或Props.arrayOf(PropTypes.node)
     expectedFields:PropTypes.arrayOf(
       PropTypes.shape({
         field: PropTypes.string,
@@ -20,12 +20,23 @@ class TableBody extends React.Component {
         dataIsNumberic:PropTypes.bool
       })
     ),
+    tableSort: PropTypes.oneOf(['none','ASC','DSC']),
+    sortByField: PropTypes.string
   }
 
   getRows() {
-    const { rows, expectedFields} = this.props;
+    const { rows, expectedFields, sortByField, tableSort } = this.props;
+    let infoOfSortByField = {};
+    //console.log(expectedFields);
+    expectedFields.forEach( fieldInfo => {
+      if (fieldInfo.field === sortByField) {
+        infoOfSortByField = fieldInfo;
+      }
+    });
 
-    return rows.map( row => {
+    //console.log('type of rows', typeof rows); object
+    //console.log(rows);
+    let unsortedRows = rows.map( row => {//这是Seq的方法
       if (!row) {
         return;
       }
@@ -35,6 +46,50 @@ class TableBody extends React.Component {
         expectedFields
       })
     })
+
+    if ( tableSort === 'none') {
+      return unsortedRows;
+    }
+    //console.log(unsortedRows.sort);
+    return unsortedRows.sort((aRow, bRow) => { //这也是immutable库的Seq提供的方法
+      let sortValueOfARow = aRow.props.data[sortByField];
+      let sortValueOfBRow = bRow.props.data[sortByField];
+
+      if (typeof sortValueOfARow === 'string') {
+        sortValueOfARow = sortValueOfARow.replace(/^\s+|\s+$/g, "");
+        if (infoOfSortByField.dataIsNumberic) {
+          sortValueOfARow = parseFloat(sortValueOfARow, 10);
+        }
+      }
+      if (typeof sortValueOfBRow === 'string') {
+        sortValueOfBRow = sortValueOfBRow.replace(/^\s+|\s+$/g, "");
+        if (infoOfSortByField.dataIsNumberic) {
+          sortValueOfBRow = parseFloat(sortValueOfBRow, 10);
+        }
+      }
+
+      if (tableSort === 'ASC' ) {
+       // console.log('ASC');
+        return this.ascendingSort(sortValueOfARow, sortValueOfBRow);
+      } else {
+        // console.log('DSC');
+        return this.descendingSort(sortValueOfARow, sortValueOfBRow);
+      }
+    });
+  }
+
+  ascendingSort(a, b) {
+    if ( a < b || a !== a) {
+      return -1;
+    } else if ( a > b || b !== b) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  descendingSort(a,b) {
+    return 0 - this.ascendingSort(a, b);
   }
 
   render() {
@@ -45,5 +100,6 @@ class TableBody extends React.Component {
     )
   }
 }
+
 
 export default TableBody;

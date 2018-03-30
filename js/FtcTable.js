@@ -39,7 +39,6 @@ class FtcTable extends React.Component {
   }
 
   static defaultProps = {
-    caption: 'none',
     className: 'table--base',
     captionsInfo: {
       top: '',
@@ -50,29 +49,34 @@ class FtcTable extends React.Component {
     super(props);
 
     const {children} = this.props;
-    /*
-    this.bodyrowChildren = React.Children.map(children, (child)=>{
-      console.log(child.type.displayName);//Wrapper
-      console.log(child.getDisplayName());
-      if(child instanceof TableBodyRow) {
-        return child;
-      } else {
-        return null;
-      }
-    });
-    console.log(this.bodyrowChildren);
-    */
-    /*
-    this.captionChildren = childrenArr.filter((child) => (
-      child.type === TableCaption
-    ))
-    */
+    
     this.immChildren = Seq(this.props.children);//利用immutable的Seq封装原来的children数组，从而使用Immutable Data进一步提升组件的渲染性能
+    
+    this.state = {
+      tableSort:'none',//或'ASC'或'DSC'
+      sortByField: '',//为某一列的field值
+    }
+    
     this.handleClickToSort = this.handleClickToSort.bind(this);
 
   }
 
-  handleClickToSort() {
+  handleClickToSort(field, e) {
+    let currentSort = e.currentTarget.getAttribute('aria-sort');//'none'或'ascending'或descending'
+    let tableSort = this.state.tableSort;
+    
+    if (tableSort==='none' || currentSort==='none' || currentSort ==='descending') {
+      this.setState({
+        tableSort:'ASC',
+        sortByField: field
+      })
+    } else {
+      this.setState({
+        tableSort:'DSC',
+        sortByField: field
+      })
+    }
+
 
   }
   renderCaption(position) {
@@ -90,8 +94,11 @@ class FtcTable extends React.Component {
     return (
       <TableHead 
         key="tableHead"
+        tableSort = {this.state.tableSort}
+        sortByField = {this.state.sortByField}
         onClickToSort={this.handleClickToSort}
         fields={this.props.fieldsInfo}
+
       />
     )
   }
@@ -100,6 +107,8 @@ class FtcTable extends React.Component {
     return (
       <TableBody 
         key="tableBody"
+        tableSort = {this.state.tableSort}
+        sortByField = {this.state.sortByField}
         expectedFields={this.props.fieldsInfo}
         rows={this.immChildren}
       />

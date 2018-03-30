@@ -20,22 +20,28 @@ class TableHead extends React.Component {
         disableSort: PropTypes.bool
       })
     ),
-    onClickToSort: PropTypes.func
+    onClickToSort: PropTypes.func,
+    tableSort: PropTypes.oneOf(['none','ASC','DSC']),
+    sortByField: PropTypes.string
   }
   constructor(props) {
     super(props);
   }
   getThs() {
-    const { fields } = this.props;
+    const { fields, sortByField, tableSort } = this.props;
     
     return fields.map( (field) => {
       if(!field) {
         return;
       }
       const keyValue = field.field;
+      let ariaSortOfTh = "none";//默认每个aria-sort都为none
+      if (keyValue === sortByField ) {//找到当前点击的field,对其进行特殊处理
+        ariaSortOfTh = tableSort==='ASC' ? 'ascending' : 'descending'; //点击之后的tableSort只有'ASC'和'DSC'两种可能
+      } 
       return (
         <th 
-        aria-sort="none" /*初始aria-sort就为none */
+        aria-sort={ariaSortOfTh} 
         data-isnumberic={field.dataIsNumberic}
         data-disablesort={field.disableSort}
         key={keyValue}
