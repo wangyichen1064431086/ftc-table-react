@@ -14,6 +14,8 @@
   vertical-align: top;
 }
 
+
+
 .table--base {//节点名--状态名
   background:transparent;
   color:#33302e;
@@ -81,11 +83,28 @@
   }
   .caption--top {
     caption-side: top;
-    margin-bottom:-2px;
+    margin-bottom:0;
   }
   .caption--bottom {
     caption-side: bottom;
     margin-bottom:0;
+  }
+}
+
+
+
+.table--row-stripes {
+  background:#fff1e5;
+  thead th {
+    background:#fff1e5; //防止scroll的时候会透出滚上来的tbody内容
+  }
+
+  caption {
+    background:#fff1e5;
+  }
+
+  tbody tr:nth-child(even) {
+    background:#f2dfce;
   }
 }
 

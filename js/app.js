@@ -46,7 +46,7 @@ class App extends React.Component {
       bottom: "Bottom Caption"
     }
     return (
-      <FtcTable className="table--base" fieldsInfo={fieldsInfoForTable} captionsInfo={captionsInfoForTable} >
+      <FtcTable className="table--row-stripes" fieldsInfo={fieldsInfoForTable} captionsInfo={captionsInfoForTable} >
         {/*<TableCaption position="top">The Caption Table</TableCaption>*/}
         <TableBodyRow defaultOrder="0" data={
           {

@@ -39,7 +39,7 @@ class FtcTable extends React.Component {
   }
 
   static defaultProps = {
-    className: 'table--base',
+    className: '',
     captionsInfo: {
       top: '',
       bottom: ''
@@ -120,9 +120,13 @@ class FtcTable extends React.Component {
 
    // const renderTopCaption = caption ==='top' || caption === 'topandbottom';
     //const renderBottomCaption = caption ==='bottom' || caption === 'topandbottom';
-
+    const resultStyleName = classnames({
+      'table--base': true,
+      [className]: true,
+      
+    });
     return (
-      <table styleName={className}>
+      <table styleName={resultStyleName}>
         { 
           captionsInfo.top &&
           this.renderCaption('top')
