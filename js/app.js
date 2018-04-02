@@ -51,9 +51,14 @@ class App extends React.Component {
       "table--horizontal-lines",
       "table--responsive-overflow"
     ];
-
+    const statisticInfoArr = ['sum', 'mean', 'median'];
     return (
-      <FtcTable styleList={styleListValue} fieldsInfo={fieldsInfoForTable} captionsInfo={captionsInfoForTable} >
+      <FtcTable 
+        styleList={styleListValue} 
+        fieldsInfo={fieldsInfoForTable} 
+        captionsInfo={captionsInfoForTable}  
+        addStatisticInfo={statisticInfoArr}
+        >
         {/*<TableCaption position="top">The Caption Table</TableCaption>*/}
         <TableBodyRow defaultOrder="0" data={
           {

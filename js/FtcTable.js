@@ -8,7 +8,7 @@ import { Seq } from 'immutable';
 import TableHead from './TableHead';
 import TableBody from './TableBody';
 import TableCaption from './TableCaption';
-
+import TableFoot from './TableFoot';
 import ftctable from '../css/ftctable.scss';
 
 @immutableRenderDecorator
@@ -50,7 +50,14 @@ class FtcTable extends React.Component {
         'table--responsive-overflow',
         'table--responsive-scroll'
       ])
-    ])
+    ]),
+    addStatisticInfo: PropTypes.arrayOf(
+      PropTypes.oneOf([
+        'sum', 
+        'mean', 
+        'median'
+      ])
+    )
     
     //caption:PropTypes.oneOf(['top','bottom','topandbottom','none'])
   }
@@ -60,7 +67,7 @@ class FtcTable extends React.Component {
     captionsInfo: {
       top: '',
       bottom: ''
-    }
+    },
   }
   constructor(props) {
     super(props);
@@ -132,12 +139,28 @@ class FtcTable extends React.Component {
     )
   }
 
-  render() {
-    const { styleList,captionsInfo } = this.props;
+  renderTableFoot() {
+    const { addStatisticInfo } = this.props;
+    console.log('renderTableFoot');
+    return (
+      <TableFoot 
+        key="tableFoot"
+        statisticArr = { addStatisticInfo }
+        fields={this.props.fieldsInfo}
+        rows={ this.immChildren }
+      />
+    )
+  }
 
+  render() {
+    const { styleList,captionsInfo,addStatisticInfo } = this.props;
+    console.log(addStatisticInfo);
    // const renderTopCaption = caption ==='top' || caption === 'topandbottom';
     //const renderBottomCaption = caption ==='bottom' || caption === 'topandbottom';
     const resultStyleName = classnames('table--base', styleList);//注意classnames拼接数组和对象的不同方式
+
+    const footRowsLen = addStatisticInfo.length;
+    console.log(footRowsLen);
     return (
       <table styleName={resultStyleName}>
         { 
@@ -151,6 +174,11 @@ class FtcTable extends React.Component {
         {
           captionsInfo.bottom &&
           this.renderCaption('bottom')
+        }
+
+        {
+          footRowsLen > 0 &&
+          this.renderTableFoot()
         }
       </table>
     );
