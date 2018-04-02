@@ -120,6 +120,9 @@
   tr:not(:last-child) {//tr中的非最后一个元素
     border-bottom: 1px solid #ccc1b7;
   }
+  thead + tbody,tbody + tfoot {//紧跟在thead后的tbody及tbody后的tfoot要有border-top
+    border-top: 2px solid #b3a9a0;
+  }
 }
 
 .table--responsive-overflow {//此样式就是表格的宽度至少为500px,再小就直接挡住边缘

@@ -171,15 +171,17 @@ class FtcTable extends React.Component {
         {this.renderTableHead()}
         {this.renderTableBody()}
 
+        
+        {
+          footRowsLen > 0 &&
+          this.renderTableFoot()
+        }
+
         {
           captionsInfo.bottom &&
           this.renderCaption('bottom')
         }
 
-        {
-          footRowsLen > 0 &&
-          this.renderTableFoot()
-        }
       </table>
     );
   }
