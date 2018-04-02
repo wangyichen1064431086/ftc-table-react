@@ -28,7 +28,8 @@ module.exports = {
     }, {
       test: /\.scss$/,
       include: [
-        path.resolve(__dirname, 'css')
+        path.resolve(__dirname, 'css'),
+        //path.resolve(__dirname, 'node_modules')
       ],
       loader: sassLoader
     }]

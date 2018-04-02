@@ -4,7 +4,7 @@
   "description": "The react version for ftc-table",
   "main": " ",
   "scripts": {
-    "start":"cross-env NODE_ENV=development node server.js",
+    "start": "cross-env NODE_ENV=development node server.js",
     "test": "jest"
   },
   "repository": {
@@ -30,7 +30,8 @@
     "react-css-modules": "^4.7.2",
     "react-dom": "^16.2.0",
     "react-immutable-render-mixin": "^0.9.7",
-    "react-motion": "^0.5.2"
+    "react-motion": "^0.5.2",
+    "sass-mq": "^4.0.2"
   },
   "jest": {
     "moduleNameMapper": {

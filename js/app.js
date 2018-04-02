@@ -50,6 +50,7 @@ class App extends React.Component {
       "table--vertical-lines",
       "table--horizontal-lines",
       "table--responsive-overflow"
+     // "table--responsive-flat"
     ];
     const statisticInfoArr = ['sum', 'mean', 'median'];
     return (
@@ -59,7 +60,6 @@ class App extends React.Component {
         captionsInfo={captionsInfoForTable}  
         addStatisticInfo={statisticInfoArr}
         >
-        {/*<TableCaption position="top">The Caption Table</TableCaption>*/}
         <TableBodyRow defaultOrder="0" data={
           {
             "Cheese": "cheddar",
@@ -84,9 +84,6 @@ class App extends React.Component {
             "CostEUR":""
           }
         }/>
-        {/*
-        <TableCaption position="bottom">The Bottom Caption</TableCaption>
-        */}
       </FtcTable>
     );
   }
