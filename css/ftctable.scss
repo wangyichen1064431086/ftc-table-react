@@ -148,24 +148,30 @@
   }
 
 
-  td {
-    @include oGridRespondTo(S) {//在宽度大于S时：
-      border-right:1px solid #ccc1b7;
-      //display:table-cell;//此处不需要指明display:table-cell,td元素display永远默认是table-cell
+
+  thead th{
+    
+
+    @include oGridRespondTo($until:S) {
+      //border-right: 1px solid #ccc1b7;
+      //display:table-cell;
+      display: none; //当宽度小于S时，不显示thead下的th，也不显示tfoot下的th和td
     }
+
   }
 
-  thead th, tfoot{
-    display: none; //当宽度小于S时，不显示thead下的th，也不显示tfoot
-
-    @include oGridRespondTo(S) {
-      border-right: 1px solid #ccc1b7;
-      display:table-cell;
+  tfoot {
+    @include oGridRespondTo($until:S) {
+      display: none;
     }
+
   }
 
-  tr {
+  tbody tr {
     //当宽度小于S,它display为弹性盒；当宽度大于S，它display恢复为正常的table-row
+    @include oGridRespondTo($until:S) {
+
+    
     display: flex;
     flex-flow: row wrap; 
       //flex-flow属性是flex-direction和flex-wrap的简写
@@ -173,21 +179,38 @@
       //flex-wrap 属性指定 flex 元素单行显示还是多行显示 。如果允许换行，这个属性允许你控制行的堆叠方向。wrap表明flex元素允许换行，第一行在上方。
       ///更多关于弹性盒语法:(http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
     width:100%;
-
-    @include oGridRespondTo (S) {
-      display: table-row;
     }
+    
 
   }
 
   tbody tr th {
-    // tbody下tr的th在S以上就不显示
-    border-right: 1px solid #ccc1b7;
-    float:left;
-    width:50%;
+    display: none;
 
-    @include oGridRespondTo(S) {
-      display: none;
+    // tbody下tr的th在S以上就不显示
+    @include oGridRespondTo($until:S) {
+      border-right: 1px solid #ccc1b7;//弹性盒时只有tbody下tr的th有右边框，其他边框都没有
+      float:left;
+      width:50%;
+
+      border-left:none;
+      display: table-cell;
+    }
+  
+    
+  }
+
+  &.table--vertical-lines tbody { //覆盖处理vertical-lines样式
+
+    td:not(:last-child):not(:first-child) {
+
+      @include oGridRespondTo($until:S) {
+        border-left: none;
+        border-right: none;
+      }
+    }
+    td:nth-child(2) {
+      border-left:none;
     }
   }
 }

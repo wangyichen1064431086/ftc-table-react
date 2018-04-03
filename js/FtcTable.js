@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import CSSModules from 'react-css-modules';
@@ -40,7 +41,8 @@ class FtcTable extends React.Component {
         'table--horizontal-lines', 
         'table--vertical-lines',
         'table--responsive-flat', 
-        'table--responsive-overflow','table--responsive-scroll'
+        'table--responsive-overflow',
+        'table--responsive-scroll'
       ])),
       PropTypes.oneOf([
         'table--row-stripes', 
@@ -69,6 +71,7 @@ class FtcTable extends React.Component {
       bottom: ''
     },
   }
+
   constructor(props) {
     super(props);
 
@@ -82,9 +85,17 @@ class FtcTable extends React.Component {
     }
     
     this.handleClickToSort = this.handleClickToSort.bind(this);
-
+    this.duplicateHeader = this.duplicateHeader.bind(this);
   }
-
+  
+  componentDidMount() {
+    const { styleList } = this.props;
+    console.log('here');
+    if (styleList.includes('table--responsive-flat')) {
+      this.duplicateHeader();
+    }
+  }
+  
   handleClickToSort(field, e) {
     let currentSort = e.currentTarget.getAttribute('aria-sort');//'none'或'ascending'或descending'
     let tableSort = this.state.tableSort;
@@ -103,6 +114,23 @@ class FtcTable extends React.Component {
 
 
   }
+  
+  duplicateHeader() {//只能在componentDidMount中调用
+    const tBodyDom = ReactDOM.findDOMNode(this.refs.myTBody);
+    console.log('tBodyDom');
+    const rowsOfBody = Array.from(tBodyDom.getElementsByTagName('tr'));
+
+    const tHeadDom = ReactDOM.findDOMNode(this.refs.myTHead);
+    const thsOfHead = tHeadDom.getElementsByTagName('th');
+    rowsOfBody.forEach( row => {
+      const tds = Array.from(row.getElementsByTagName('td'));
+
+      tds.forEach((td,index) => {
+        row.insertBefore(thsOfHead[index].cloneNode(true), td);
+      });
+    })
+  }
+  
   renderCaption(position) {
     const { captionsInfo } = this.props;
     const content = captionsInfo[position];
@@ -122,11 +150,11 @@ class FtcTable extends React.Component {
         sortByField = {this.state.sortByField}
         onClickToSort={this.handleClickToSort}
         fields={this.props.fieldsInfo}
-
+        ref="myTHead"
       />
     )
   }
-
+  
   renderTableBody() {
     return (
       <TableBody 
@@ -135,6 +163,7 @@ class FtcTable extends React.Component {
         sortByField = {this.state.sortByField}
         expectedFields={this.props.fieldsInfo}
         rows={this.immChildren}
+        ref="myTBody"
       />
     )
   }
@@ -155,8 +184,7 @@ class FtcTable extends React.Component {
   render() {
     const { styleList,captionsInfo,addStatisticInfo } = this.props;
     console.log(addStatisticInfo);
-   // const renderTopCaption = caption ==='top' || caption === 'topandbottom';
-    //const renderBottomCaption = caption ==='bottom' || caption === 'topandbottom';
+  
     const resultStyleName = classnames('table--base', styleList);//注意classnames拼接数组和对象的不同方式
 
     const footRowsLen = addStatisticInfo.length;

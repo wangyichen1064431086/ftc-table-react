@@ -49,8 +49,9 @@ class App extends React.Component {
       "table--row-stripes",
       "table--vertical-lines",
       "table--horizontal-lines",
-      "table--responsive-overflow"
-     // "table--responsive-flat"
+      //"table--responsive-overflow",
+       "table--responsive-flat"
+       //三种responsive样式:overflow, flat, scroll只能选择一种
     ];
     const statisticInfoArr = ['sum', 'mean', 'median'];
     return (
