@@ -59,7 +59,11 @@ class FtcTable extends React.Component {
         'mean', 
         'median'
       ])
-    )
+    ),
+    addWrapperInfo:PropTypes.shape({
+      width: PropTypes.string,
+      height: PropTypes.string
+    })
     
     //caption:PropTypes.oneOf(['top','bottom','topandbottom','none'])
   }
@@ -86,14 +90,27 @@ class FtcTable extends React.Component {
     
     this.handleClickToSort = this.handleClickToSort.bind(this);
     this.duplicateHeader = this.duplicateHeader.bind(this);
+    this.handleScrollOnWrapper = this.handleScrollOnWrapper.bind(this);
   }
   
   componentDidMount() {
+    this.tBodyDom = ReactDOM.findDOMNode(this.refs.myTBody);
+    this.tHeadDom = ReactDOM.findDOMNode(this.refs.myTHead);
+    this.topCaptionDom = null;
+    if(this.refs.topCaption) {
+      this.topCaptionDom = ReactDOM.findDOMNode(this.refs.topCaption);
+
+    }
+
+
     const { styleList } = this.props;
-    console.log('here');
+
     if (styleList.includes('table--responsive-flat')) {
       this.duplicateHeader();
     }
+ 
+    //处理wrapper
+
   }
   
   handleClickToSort(field, e) {
@@ -116,11 +133,11 @@ class FtcTable extends React.Component {
   }
   
   duplicateHeader() {//只能在componentDidMount中调用
-    const tBodyDom = ReactDOM.findDOMNode(this.refs.myTBody);
-    console.log('tBodyDom');
+    const tBodyDom = this.tBodyDom;
+   
     const rowsOfBody = Array.from(tBodyDom.getElementsByTagName('tr'));
 
-    const tHeadDom = ReactDOM.findDOMNode(this.refs.myTHead);
+    const tHeadDom = this.tHeadDom;
     const thsOfHead = tHeadDom.getElementsByTagName('th');
     rowsOfBody.forEach( row => {
       const tds = Array.from(row.getElementsByTagName('td'));
@@ -130,13 +147,22 @@ class FtcTable extends React.Component {
       });
     })
   }
-  
+  handleScrollOnWrapper(e) {
+    const scrollTop = e.currentTarget.scrollTop;
+    if(this.tHeadDom) {
+      this.tHeadDom.style.transform = 'translateY(' + scrollTop + 'px)';
+    }
+    if(this.topCaptionDom) {
+      this.topCaptionDom.style.transform = 'translateY(' + scrollTop + 'px)';
+    }
+  }
   renderCaption(position) {
     const { captionsInfo } = this.props;
     const content = captionsInfo[position];
     const captionClass = position === 'top' ? 'caption--top' : 'caption--bottom';
+    const refName = `${position}Caption`
     return (
-      <TableCaption style={captionClass}> {/*待确认：styleName只能用在DOM组件上，如果用在react组件上则不能生效*/}
+      <TableCaption style={captionClass} ref={refName}> {/*待确认：styleName只能用在DOM组件上，如果用在react组件上则不能生效*/}
         {content}
       </TableCaption>
     
@@ -181,15 +207,38 @@ class FtcTable extends React.Component {
     )
   }
 
-  render() {
-    const { styleList,captionsInfo,addStatisticInfo } = this.props;
-    console.log(addStatisticInfo);
   
-    const resultStyleName = classnames('table--base', styleList);//注意classnames拼接数组和对象的不同方式
+  render() {
+    const { styleList,captionsInfo,addStatisticInfo,addWrapperInfo } = this.props;
+
+    let resultStyleName = classnames('table--base', styleList);//注意classnames拼接数组和对象的不同方式
+    let addWrapper = false;
+    let wrapperWidth;
+    let wrapperHeight;
+
+    if (addWrapperInfo && addWrapperInfo.width && addWrapperInfo.height) {
+      wrapperWidth = addWrapperInfo.width;
+      wrapperHeight = addWrapperInfo.height;
+      if (parseFloat(wrapperWidth, 10) && parseFloat(wrapperHeight, 10)) {
+          addWrapper = true;
+          const newStyleList = styleList.filter(value => (
+            value !== 'table--responsive-overflow' && value !== 'table--responsive-flat'
+          ))
+          resultStyleName = classnames('table--base', newStyleList);
+          //如果只有数字，那么就添上px
+          if (Number(wrapperWidth)) {
+            wrapperWidth += 'px';
+          } 
+          if (Number(wrapperHeight)) {
+            wrapperHeight += 'px';
+          }
+      }
+    }
+    
 
     const footRowsLen = addStatisticInfo.length;
-    console.log(footRowsLen);
-    return (
+    
+    const tableEl = (
       <table styleName={resultStyleName}>
         { 
           captionsInfo.top &&
@@ -212,6 +261,26 @@ class FtcTable extends React.Component {
 
       </table>
     );
+
+
+    if (addWrapper) {//判定这两个值有效
+      
+      const wrapperElStyle = {//组件的行内样式必须是一个对象
+        width:wrapperWidth,
+        height:wrapperHeight
+      };
+
+      return (
+        <div 
+          style={wrapperElStyle} 
+          styleName="wrapper"
+          onScroll={this.handleScrollOnWrapper}
+          >
+          { tableEl }
+        </div>
+      )
+    }
+    return tableEl;
   }
 }
 

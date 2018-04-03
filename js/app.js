@@ -49,17 +49,22 @@ class App extends React.Component {
       "table--row-stripes",
       "table--vertical-lines",
       "table--horizontal-lines",
-      //"table--responsive-overflow",
+      "table--responsive-overflow",
        "table--responsive-flat"
-       //三种responsive样式:overflow, flat, scroll只能选择一种
+       //两种responsive样式:overflow, flat 1.只能选择一种,如果两种都写了，则写在后面的那一种生效；2.有了addWrapperInfo这两种responsive样式都无效
     ];
     const statisticInfoArr = ['sum', 'mean', 'median'];
+    const wrapperInfo = {
+      width:'100%',
+      height:'180px'
+    }
     return (
       <FtcTable 
         styleList={styleListValue} 
         fieldsInfo={fieldsInfoForTable} 
         captionsInfo={captionsInfoForTable}  
         addStatisticInfo={statisticInfoArr}
+        //addWrapperInfo={wrapperInfo} 
         >
         <TableBodyRow defaultOrder="0" data={
           {

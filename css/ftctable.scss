@@ -108,6 +108,7 @@
 }
 
 
+
 .table--vertical-lines {
   th:not(:last-child):not(:first-child), td:not(:last-child):not(:first-child) {
     border-left: 1px solid #ccc1b7;
@@ -126,6 +127,7 @@
 }
 
 
+
 .table--responsive-overflow {//此样式就是表格的宽度至少为500px,再小就直接挡住边缘
   margin:0;//普通ftc-table是margin: 0 0 20px;这个是因为width直接可能超出范围，所以左右也为0吧
   min-width: 500px;
@@ -135,60 +137,34 @@
 
 
 .table--responsive-flat {
+
   float: left;//表明元素浮动在其所在的块容器左侧
   width:100%;
+
   *, *:before, *:after {
     box-sizing: border-box;
   } 
 
-  @include oGridRespondTo($until: S) {
-    .body-cell--numeric {
-      text-align: left;
-    }
+  tbody tr th { //这是复制得到的tbody中每行的th,正常情况下都不显示
+    display: none;
   }
 
-
-
-  thead th{
-    
-
-    @include oGridRespondTo($until:S) {
-      //border-right: 1px solid #ccc1b7;
-      //display:table-cell;
-      display: none; //当宽度小于S时，不显示thead下的th，也不显示tfoot下的th和td
-    }
-
-  }
-
-  tfoot {
-    @include oGridRespondTo($until:S) {
+  @include oGridRespondTo($until:S) {
+    thead, tfoot {//当宽度小于S时，不显示thead，也不显示tfoot
       display: none;
     }
 
-  }
-
-  tbody tr {
-    //当宽度小于S,它display为弹性盒；当宽度大于S，它display恢复为正常的table-row
-    @include oGridRespondTo($until:S) {
-
-    
-    display: flex;
-    flex-flow: row wrap; 
-      //flex-flow属性是flex-direction和flex-wrap的简写
-      //flex-direction 属性指定了内部元素是如何在 flex 容器中布局的。row表明是从左到右的水平轴
-      //flex-wrap 属性指定 flex 元素单行显示还是多行显示 。如果允许换行，这个属性允许你控制行的堆叠方向。wrap表明flex元素允许换行，第一行在上方。
-      ///更多关于弹性盒语法:(http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
-    width:100%;
+    tbody tr { //当宽度小于S,它display为弹性盒；当宽度大于S，它display恢复为正常的table-row
+      display: flex;
+      flex-flow: row wrap; 
+        //flex-flow属性是flex-direction和flex-wrap的简写
+        //flex-direction 属性指定了内部元素是如何在 flex 容器中布局的。row表明是从左到右的水平轴
+        //flex-wrap 属性指定 flex 元素单行显示还是多行显示 。如果允许换行，这个属性允许你控制行的堆叠方向。wrap表明flex元素允许换行，第一行在上方。
+        ///更多关于弹性盒语法:(http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+      width:100%;
     }
-    
 
-  }
-
-  tbody tr th {
-    display: none;
-
-    // tbody下tr的th在S以上就不显示
-    @include oGridRespondTo($until:S) {
+    tbody tr th {
       border-right: 1px solid #ccc1b7;//弹性盒时只有tbody下tr的th有右边框，其他边框都没有
       float:left;
       width:50%;
@@ -196,21 +172,48 @@
       border-left:none;
       display: table-cell;
     }
-  
-    
+
+    .body-cell--numeric {//S以下下的numeric单元左对齐，正常情况是右对齐
+      text-align: left;
+    }
   }
+ 
 
-  &.table--vertical-lines tbody { //覆盖处理vertical-lines样式
+  //另外特殊处理：以覆盖处理vertical-lines、horizontal-lines样式
+  &.table--vertical-lines tbody tr { 
 
-    td:not(:last-child):not(:first-child) {
+    td:nth-child(2) {//这个要覆盖正常情况下td:not(:last-child):not(:first-child){barder-left:xx;}
+    //因为之前插入了th之后第一个显示的td就是其父元素的第2个子元素
+      border-left:none;
+    }
 
+    td:not(:last-child):not(:first-child){
       @include oGridRespondTo($until:S) {
         border-left: none;
         border-right: none;
       }
     }
-    td:nth-child(2) {
-      border-left:none;
+
+    th:not(:last-child):not(:first-child) {
+      @include oGridRespondTo($until:S) {
+        border-left: none;
+      }
     }
+    
   }
+
+  &.table--horizontal-lines {
+    @include oGridRespondTo($until:S) {
+      thead + tbody  {//小于S时，thead后的tbody上的线要删除，因为现在没有tHead了，所以如果再来个分界线会跟Caption的重合变粗
+        border-top: none;
+      }
+    }
+    
+  }
+
+}
+
+
+.wrapper {
+  overflow: scroll;
 }
