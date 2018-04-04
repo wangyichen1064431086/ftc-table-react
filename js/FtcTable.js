@@ -239,7 +239,7 @@ class FtcTable extends React.Component {
         {this.renderTableHead()}
         {this.renderTableBody()}
         {
-          (addStatisticInfo && addStatisticInfo > 0) &&
+          (addStatisticInfo && addStatisticInfo.length > 0) &&
           this.renderTableFoot()
         }
         {

@@ -221,8 +221,6 @@ describe('Table with captionsInfo', () => {
 
     expect(ftcTableNode.querySelectorAll('caption').length).toBe(2);
   });
-
-  
 });
 
 describe('Table with styleList', () => {
@@ -263,4 +261,137 @@ describe('Table with styleList', () => {
     expect(ftcTableNode.className.includes('table--row-stripes')).toBeTruthy;
   
   });
+  it('render with styleList: multipile classes ', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+            }
+          ]
+        }
+        styleList = {["table--row-stripes",
+        "table--vertical-lines",
+        "table--horizontal-lines",
+        "table--responsive-overflow",
+        "table--responsive-flat"]}
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+
+    expect(ftcTableNode.className.includes('table--row-stripes')).toBeTruthy;
+    expect(ftcTableNode.className.includes('table--vertical-lines')).toBeTruthy;
+    expect(ftcTableNode.className.includes('table--horizontal-lines')).toBeTruthy;
+    expect(ftcTableNode.className.includes('table--responsive-overflow')).toBeTruthy;
+    expect(ftcTableNode.className.includes('table--responsive-flat')).toBeTruthy;
+  });
+  it('render with responsive style, it should be valid with wrapper', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+            }
+          ]
+        }
+        styleList = {[
+        "table--vertical-lines",
+        "table--responsive-overflow",
+        "table--responsive-flat"]}
+        wrapperInfo = {{
+          width:'100%',
+          height:'180px'
+        }}
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+
+    expect(ftcTableNode.className.includes('table--vertical-lines')).toBeTruthy;
+    expect(ftcTableNode.className.includes('table--responsive-overflow')).toBeFalsy;
+    expect(ftcTableNode.className.includes('table--responsive-flat')).toBeFalsy;
+  });
+});
+
+describe('Table with addStatisticInfo', () => {
+  it('render with statistic: sum ', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+              dataIsNumberic: true
+            }
+          ]
+        }
+        addStatisticInfo = {['sum']}
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+
+    expect(ftcTableNode.querySelector('tfoot')).toBeInstanceOf(HTMLElement);
+    expect(ftcTableNode.querySelector('tfoot tr th').innerHTML.replace(/^\s+|\s+$/g,'')).toBe('sum');
+    expect(ftcTableNode.querySelector('tfoot tr').querySelector('td:nth-child(2)').innerHTML.replace(/^\s+|\s+$/g,'')).toBe('70');
+
+  });
+
 });
