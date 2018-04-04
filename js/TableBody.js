@@ -10,18 +10,18 @@ import ftctable from '../css/ftctable.scss';
 @CSSModules(ftctable, { allowMultiple: true })
 class TableBody extends React.Component {
   static propTypes = {
-    rows: PropTypes.object, //Seq之后类型变为object, Seq之前是Props.node或Props.arrayOf(PropTypes.node)
+    rows: PropTypes.object.isRequired, //Seq之后类型变为object, Seq之前是Props.node或Props.arrayOf(PropTypes.node)
     expectedFields:PropTypes.arrayOf(
       PropTypes.shape({
-        field: PropTypes.string,
+        field: PropTypes.string.isRequired,
         fieldName: PropTypes.string,
         fieldSubName:PropTypes.string,
-        //sortType:PropTypes.oneOf(['none','ascending','descending']),
-        dataIsNumberic:PropTypes.bool
+        dataIsNumberic:PropTypes.bool,
+        disableSort: PropTypes.bool
       })
     ),
-    tableSort: PropTypes.oneOf(['none','ASC','DSC']),
-    sortByField: PropTypes.string
+    tableSort: PropTypes.oneOf(['none','ASC','DSC']).isRequired,
+    sortByField: PropTypes.string.isRequired
   }
 
   getRows() {

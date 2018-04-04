@@ -23,10 +23,9 @@ class FtcTable extends React.Component {
     ]),
     fieldsInfo:PropTypes.arrayOf(
       PropTypes.shape({
-        field: PropTypes.string,
+        field: PropTypes.string.isRequired,
         fieldName: PropTypes.string,
         fieldSubName: PropTypes.string,
-        //sortType:PropTypes.oneOf(['none','ascending','descending']),
         dataIsNumberic: PropTypes.bool,
         disableSort: PropTypes.bool
       })
@@ -41,16 +40,14 @@ class FtcTable extends React.Component {
         'table--horizontal-lines', 
         'table--vertical-lines',
         'table--responsive-flat', 
-        'table--responsive-overflow',
-        'table--responsive-scroll'
+        'table--responsive-overflow'
       ])),
       PropTypes.oneOf([
         'table--row-stripes', 
         'table--horizontal-lines', 
         'table--vertical-lines',
         'table--responsive-flat', 
-        'table--responsive-overflow',
-        'table--responsive-scroll'
+        'table--responsive-overflow'
       ])
     ]),
     addStatisticInfo: PropTypes.arrayOf(
@@ -68,13 +65,7 @@ class FtcTable extends React.Component {
     //caption:PropTypes.oneOf(['top','bottom','topandbottom','none'])
   }
 
-  static defaultProps = {
-    className: '',
-    captionsInfo: {
-      top: '',
-      bottom: ''
-    },
-  }
+
 
   constructor(props) {
     super(props);
@@ -105,7 +96,7 @@ class FtcTable extends React.Component {
 
     const { styleList } = this.props;
 
-    if (styleList.includes('table--responsive-flat')) {
+    if (styleList && styleList.includes('table--responsive-flat')) {
       this.duplicateHeader();
     }
  
@@ -114,6 +105,10 @@ class FtcTable extends React.Component {
   }
   
   handleClickToSort(field, e) {
+    let isDisableSort = e.currentTarget.getAttribute('data-disablesort');
+    if(isDisableSort) {
+      return;
+    }
     let currentSort = e.currentTarget.getAttribute('aria-sort');//'none'或'ascending'或descending'
     let tableSort = this.state.tableSort;
     
@@ -196,7 +191,6 @@ class FtcTable extends React.Component {
 
   renderTableFoot() {
     const { addStatisticInfo } = this.props;
-    console.log('renderTableFoot');
     return (
       <TableFoot 
         key="tableFoot"
@@ -211,7 +205,7 @@ class FtcTable extends React.Component {
   render() {
     const { styleList,captionsInfo,addStatisticInfo,addWrapperInfo } = this.props;
 
-    let resultStyleName = classnames('table--base', styleList);//注意classnames拼接数组和对象的不同方式
+    let resultStyleName = classnames('table--base', styleList);//注意1.classnames拼接数组和对象的不同方式;2.styleList即使为undefined,classnames也能处理
     let addWrapper = false;
     let wrapperWidth;
     let wrapperHeight;
@@ -235,27 +229,21 @@ class FtcTable extends React.Component {
       }
     }
     
-
-    const footRowsLen = addStatisticInfo.length;
     
     const tableEl = (
       <table styleName={resultStyleName}>
         { 
-          captionsInfo.top &&
+          (captionsInfo && captionsInfo.top) &&
           this.renderCaption('top')
         }
-
         {this.renderTableHead()}
         {this.renderTableBody()}
-
-        
         {
-          footRowsLen > 0 &&
+          (addStatisticInfo && addStatisticInfo > 0) &&
           this.renderTableFoot()
         }
-
         {
-          captionsInfo.bottom &&
+          (captionsInfo && captionsInfo.bottom) &&
           this.renderCaption('bottom')
         }
 
