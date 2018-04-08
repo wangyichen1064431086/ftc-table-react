@@ -64,7 +64,7 @@ class App extends React.Component {
         fieldsInfo={fieldsInfoForTable} 
         captionsInfo={captionsInfoForTable}  
         addStatisticInfo={statisticInfoArr}
-        //addWrapperInfo={wrapperInfo} 
+       // addWrapperInfo={wrapperInfo} 
         >
         <TableBodyRow defaultOrder="0" data={
           {

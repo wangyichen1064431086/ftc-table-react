@@ -105,14 +105,17 @@ class FtcTable extends React.Component {
   }
   
   handleClickToSort(field, e) {
+    console.log('handle');
     let isDisableSort = e.currentTarget.getAttribute('data-disablesort');
-    if(isDisableSort) {
+    if(isDisableSort==='true') {
+      console.log('disablesort');
       return;
     }
     let currentSort = e.currentTarget.getAttribute('aria-sort');//'none'或'ascending'或descending'
     let tableSort = this.state.tableSort;
     
     if (tableSort==='none' || currentSort==='none' || currentSort ==='descending') {
+      console.log('set state to asc');
       this.setState({
         tableSort:'ASC',
         sortByField: field
@@ -215,10 +218,13 @@ class FtcTable extends React.Component {
       wrapperHeight = addWrapperInfo.height;
       if (parseFloat(wrapperWidth, 10) && parseFloat(wrapperHeight, 10)) {
           addWrapper = true;
-          const newStyleList = styleList.filter(value => (
-            value !== 'table--responsive-overflow' && value !== 'table--responsive-flat'
-          ))
-          resultStyleName = classnames('table--base', newStyleList);
+          if(styleList && styleList.length > 0) {
+            const newStyleList = styleList.filter(value => (
+              value !== 'table--responsive-overflow' && value !== 'table--responsive-flat'
+            ))
+            resultStyleName = classnames('table--base', newStyleList);
+          }
+         
           //如果只有数字，那么就添上px
           if (Number(wrapperWidth)) {
             wrapperWidth += 'px';

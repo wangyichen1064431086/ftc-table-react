@@ -42,7 +42,7 @@ class TableHead extends React.Component {
       return (
         <th 
         aria-sort={ariaSortOfTh} 
-        data-disablesort={field.disableSort || false}
+        data-disablesort={field.disableSort || false}//TORETHINK：这里会得到的是一个字符串'false'而非boolean
         key={keyValue}
         onClick={this.props.onClickToSort.bind(this, keyValue)}
         >

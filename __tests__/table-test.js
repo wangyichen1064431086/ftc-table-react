@@ -7,6 +7,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import FtcTable from '../js/FtcTable';
 import TableBodyRow from '../js/TableBodyRow';
+import { wrap } from 'module';
 
 describe('Table with least data', () => {
   it('render the Table', () => {
@@ -395,3 +396,176 @@ describe('Table with addStatisticInfo', () => {
   });
 
 });
+
+describe('Table with wrapper', () => {
+  it('render with wrapper with 100% width and 180px height', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+              dataIsNumberic: true
+            }
+          ]
+        }
+        addWrapperInfo={ {
+          width:'100%',
+          height:'180px'
+        }}
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+  
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+    const wrapperNode = ftcTableNode.parentNode;
+    expect(wrapperNode).toBeInstanceOf(HTMLElement);
+    expect(wrapperNode.className.includes('wrapper')).toBeTruthy;
+
+    //TORETHIINK:这里好像是因为Jest测试并不是在真实的DOM中运行，只是在JSDOM模拟的DOM中运行，所以offsetHeight和getBoundingClientRect().height都为0
+   // expect(wrapperNode.offsetHeight).toBe(180);
+    //expect(wrapperNode.getBoundingClientRect().height).toBe(180);
+  })
+  
+});
+
+describe('The sorting feature of Table', () => {
+  it('Before click,there is no sorting', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+              dataIsNumberic: true
+            }
+          ]
+        }
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+  
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+    expect(ftcTableNode.querySelector('thead tr th:nth-child(2)').getAttribute('aria-sort')).toBe('none');
+ 
+  });
+  it('Click the th of second column 2 times', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+              dataIsNumberic: true
+            }
+          ]
+        }
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+  
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+    
+    ReactTestUtils.Simulate.click(
+      ftcTableNode.querySelector('thead tr th:nth-child(2)')
+    );
+    expect(ftcTableNode.querySelector('thead tr th:nth-child(2)').getAttribute('aria-sort')).toBe('ascending');
+
+    ReactTestUtils.Simulate.click(
+      ftcTableNode.querySelector('thead tr th:nth-child(2)')
+    );//NOTE：只有两个click写到一个it里面才会同步执行；如果写在不同的it里面那么不同的it是不同的异步任务，结果都是第一次点击的结构
+    expect(ftcTableNode.querySelector('thead tr th:nth-child(2)').getAttribute('aria-sort')).toBe('descending');
+ 
+ 
+  });
+
+  /*
+  it('Click the th of second column second time', () => {
+    const ftcTable = ReactTestUtils.renderIntoDocument(
+      <FtcTable
+        fieldsInfo = {
+          [
+            {
+              field:'field1',
+            },
+            {
+              field:'field2',
+              dataIsNumberic: true
+            }
+          ]
+        }
+      >
+        <TableBodyRow
+          defaultOrder="0"
+          data={{
+            field1:'Apple',
+            field2:'20'
+          }}
+        />
+        <TableBodyRow
+          defaultOrder="1"
+          data={{
+            field1:'Cherry',
+            field2:'50'
+          }}
+        />
+      </FtcTable>
+    );
+  
+    const ftcTableNode = ReactDOM.findDOMNode(ftcTable);
+    
+    
+  });
+  */
+})
