@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import FtcTable from './FtcTable';
-import TableBodyRow from './TableBodyRow';
+import {FtcTable, TableBodyRow} from './index.js';
 
 
 class App extends React.Component {
