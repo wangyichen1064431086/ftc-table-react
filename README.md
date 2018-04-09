@@ -1,4 +1,8 @@
 # ftc-table-react
+
+[![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.org/package/brick.js)
+
+
 The React version for ftc-table. 
 
 It provides some features for a table: sorting by each column, showing caculating results, fixing the table's head if necessary...
