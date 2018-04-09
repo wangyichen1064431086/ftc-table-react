@@ -1,5 +1,5 @@
 {
-  "name": "ftc-table-react",
+  "name": "@ftchinese/ftc-table-react",
   "version": "1.0.0",
   "description": "The react version for ftc-table",
   "main": "build/index.js",
