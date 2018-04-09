@@ -1,6 +1,6 @@
 # ftc-table-react
 
-[![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.org/package/brick.js)
+[![NPM version](https://img.shields.io/npm/v/npm.svg?style=flat)](https://www.npmjs.com/package/@ftchinese/ftc-table-react)
 
 
 The React version for ftc-table. 
