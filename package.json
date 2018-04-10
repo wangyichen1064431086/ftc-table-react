@@ -83,5 +83,8 @@
     "webpack-cli": "^2.0.14",
     "webpack-dev-middleware": "^3.0.1",
     "webpack-hot-middleware": "^2.21.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

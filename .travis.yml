@@ -16,3 +16,6 @@ deploy:
     tags: true
     branch: master
     skip_cleanup: true
+    tag: next
+ 
+
