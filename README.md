@@ -1,6 +1,7 @@
 # ftc-table-react
-
+<!--
 [![](https://img.shields.io/npm/v/npm.svg?style=flat)](https://www.npmjs.com/package/@ftchinese/ftc-table-react)
+-->
 [![](https://travis-ci.org/wangyichen1064431086/ftc-table-react.svg?branch=master)](https://travis-ci.org/wangyichen1064431086/ftc-table-react)
 
 The React version for ftc-table. 
