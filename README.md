@@ -9,19 +9,19 @@ The React version for ftc-table.
 It provides some features for a table: sorting by each column, showing caculating results, fixing the table's head if necessary...
 
 ## Install
-```
+```c
 cd yourProject
 npm install "@ftchinese/ftc-table-react" --save 
 ```
 
 ## Usage
 Example:
-```
+
+```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
-import {FtcTable, TableBodyRow} from '@ftchinese/ftc-table-react.js';
+import {FtcTable, TableBodyRow} from '@ftchinese/ftc-table-react';
 
 
 class App extends React.Component {

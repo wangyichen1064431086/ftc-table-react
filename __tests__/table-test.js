@@ -7,7 +7,6 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import FtcTable from '../js/FtcTable';
 import TableBodyRow from '../js/TableBodyRow';
-import { wrap } from 'module';
 
 describe('Table with least data', () => {
   it('render the Table', () => {

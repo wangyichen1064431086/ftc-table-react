@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import {FtcTable, TableBodyRow} from './index.js';
+//import {FtcTable, TableBodyRow} from './index.js';
+import {FtcTable, TableBodyRow} from '../build/index.es';
 
 
 class App extends React.Component {

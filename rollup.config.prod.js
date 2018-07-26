@@ -3,6 +3,8 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
+import minify from 'rollup-plugin-minify-es';
+import cssdiscardcomments from 'postcss-discard-comments';
 
 export default {
   input: './js/index.js',
@@ -12,47 +14,34 @@ export default {
       sourcemap: true,
       globals:{
         react: 'React',
-        'react-dom': 'ReactDOM'
+        'react-dom': 'ReactDOM',
+        'prop-types':'PropTypes',
+        'classnames':'classnames',
+        'react-css-modules':'CSSModules',
+        'react-immutable-render-mixin':'immutableRenderMixin',
+        'immutable':'immutable'
       },
       file: './build/index.js',
       format: 'umd'
     },
     {
-      name:'FtcTable',
       sourcemap: true,
-      globals:{
-        react: 'React',
-        'react-dom': 'ReactDOM'
-      },
       file: './build/index.es.js',
       format: 'es'
     },
   ],
- /*
-  targets: [
-    {
-      dest: './build/index.js',
-      format: 'umd'
-    },
-    {
-      dest: './build/index.es.js',
-      format: 'es'
-    }
-  ],
-  */
 
   plugins: [
     postcss({
-      modules: true
+      modules: true,
+      plugins: [
+        cssdiscardcomments()
+      ]
     }),
     babel({
       exclude: 'node_modules/**'
     }),
-    /*
-    replace({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    }),
-    */
+
     resolve({
       jsnext: true,
       main:true
@@ -61,10 +50,16 @@ export default {
       namedExports: {
         'node_modules/immutable/dist/immutable.js':['Seq']
       }
+    }),
+    minify({
+      compress: {
+        drop_console:true
+      }
     })
   ],
 
-  external: ['react', 'react-dom'],
+  external: ['react', 'react-dom','prop-types','classnames','react-css-modules', 'react-immutable-render-mixin','immutable']
+  ,
 
   
 }
