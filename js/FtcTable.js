@@ -17,10 +17,9 @@ import ftctable from '../css/ftctable.scss';
 class FtcTable extends React.Component {
   static propTypes = {
     children: PropTypes.oneOfType([
-
       PropTypes.arrayOf(PropTypes.node),
       PropTypes.node
-    ]),
+    ]).isRequired,
     fieldsInfo:PropTypes.arrayOf(
       PropTypes.shape({
         field: PropTypes.string.isRequired,
@@ -58,8 +57,8 @@ class FtcTable extends React.Component {
       ])
     ),
     addWrapperInfo:PropTypes.shape({
-      width: PropTypes.string,
-      height: PropTypes.string
+      width: PropTypes.string.isRequired,
+      height: PropTypes.string.isRequired
     })
     
     //caption:PropTypes.oneOf(['top','bottom','topandbottom','none'])
@@ -160,7 +159,7 @@ class FtcTable extends React.Component {
     const captionClass = position === 'top' ? 'caption--top' : 'caption--bottom';
     const refName = `${position}Caption`
     return (
-      <TableCaption style={captionClass} ref={refName}> {/*待确认：styleName只能用在DOM组件上，如果用在react组件上则不能生效*/}
+      <TableCaption style={captionClass} ref={refName}> {/*styleName只能用在DOM组件上，如果用在react组件上则不能生效*/}
         {content}
       </TableCaption>
     
@@ -216,22 +215,23 @@ class FtcTable extends React.Component {
     if (addWrapperInfo && addWrapperInfo.width && addWrapperInfo.height) {
       wrapperWidth = addWrapperInfo.width;
       wrapperHeight = addWrapperInfo.height;
-      if (parseFloat(wrapperWidth, 10) && parseFloat(wrapperHeight, 10)) {
-          addWrapper = true;
-          if(styleList && styleList.length > 0) {
-            const newStyleList = styleList.filter(value => (
-              value !== 'table--responsive-overflow' && value !== 'table--responsive-flat'
-            ))
-            resultStyleName = classnames('table--base', newStyleList);
-          }
-         
-          //如果只有数字，那么就添上px
-          if (Number(wrapperWidth)) {
-            wrapperWidth += 'px';
-          } 
-          if (Number(wrapperHeight)) {
-            wrapperHeight += 'px';
-          }
+      if (parseFloat(wrapperWidth, 10) && parseFloat(wrapperHeight, 10)) {//先检查该值是否包含数字，无论是'100','100px',100,'100%'这parseFloat之后都会得到100,即该条件会进入，但parseFloat不会影响原wrapperWidth、wrapperHeight值，下面会用到parseFloat之前的值
+        console.log(`parseFloat wrapperWidth: ${parseFloat(wrapperWidth, 10)}` );
+        addWrapper = true;
+        if(styleList && styleList.length > 0) {
+          const newStyleList = styleList.filter(value => (
+            value !== 'table--responsive-overflow' && value !== 'table--responsive-flat'
+          ))
+          resultStyleName = classnames('table--base', newStyleList);
+        }
+        
+        //如果只有数字，那么就添上px
+        if (Number(wrapperWidth)) {
+          wrapperWidth += 'px';
+        } 
+        if (Number(wrapperHeight)) {
+          wrapperHeight += 'px';
+        }
       }
     }
     

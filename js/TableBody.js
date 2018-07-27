@@ -36,11 +36,14 @@ class TableBody extends React.Component {
 
     //console.log('type of rows', typeof rows); object
     //console.log(rows);
-    let unsortedRows = rows.map( row => {//这是Seq的方法
+    let unsortedRows = rows.map( (row, index) => {//这是Seq的方法
+      /*
       if (!row) {
         return;
       }
-      const defaultOrder = parseInt(row.props.defaultOrder,10);
+      */
+
+      const defaultOrder = typeof row.props.defaultOrder == 'number' ?  row.props.defaultOrder : index;
       return React.cloneElement(row, {
         key:`tbodyrow-default${defaultOrder}`,
         expectedFields

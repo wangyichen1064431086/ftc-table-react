@@ -10,7 +10,7 @@ import ftctable from '../css/ftctable.scss';
 @CSSModules(ftctable, { allowMultiple: true })
 class TableBodyRow extends React.Component {
   static propTypes = {
-    defaultOrder: PropTypes.string.isRequired,
+    defaultOrder: PropTypes.number,
     expectedFields:PropTypes.arrayOf(
       PropTypes.shape({
         field: PropTypes.string,
@@ -21,7 +21,7 @@ class TableBodyRow extends React.Component {
         disableSort: PropTypes.bool
       })
     ),
-    data: PropTypes.object
+    data: PropTypes.object.isRequired
   }
   getTdsOfOneRow() {
     const { expectedFields, data } = this.props;

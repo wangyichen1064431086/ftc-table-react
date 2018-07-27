@@ -64,9 +64,9 @@ class App extends React.Component {
         fieldsInfo={fieldsInfoForTable} 
         captionsInfo={captionsInfoForTable}  
         addStatisticInfo={statisticInfoArr}
-       // addWrapperInfo={wrapperInfo} 
+        //addWrapperInfo={wrapperInfo} 
         >
-        <TableBodyRow defaultOrder="0" data={
+        <TableBodyRow defaultOrder={0} data={
           {
             "Cheese": "cheddar",
             "Bread": "rye",
@@ -74,7 +74,7 @@ class App extends React.Component {
             "CostEUR":1.56
           }
         }/>
-        <TableBodyRow defaultOrder="1" data={
+        <TableBodyRow defaultOrder={1} data={
           {
             "Cheese": "stilton",
             "Bread": "wholemeal",
@@ -82,7 +82,7 @@ class App extends React.Component {
             "CostEUR":1.85
           }
         }/>
-        <TableBodyRow defaultOrder="2" data={
+        <TableBodyRow defaultOrder={2} data={
           {
             "Cheese": "red leicester",
             "Bread": "white",
