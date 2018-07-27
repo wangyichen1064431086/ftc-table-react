@@ -24,14 +24,14 @@ describe('Table with least data', () => {
         }
       >
         <TableBodyRow
-          defaultOrder="0"
+          defaultOrder={0}
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
+          defaultOrder={1}
           data={{
             field1:'Cherry',
             field2:'50'
@@ -66,14 +66,14 @@ describe('Table with fieldsInfo', () => {
         }
       >
         <TableBodyRow
-          defaultOrder="0"
+          defaultOrder={0}
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
+          defaultOrder={1}
           data={{
             field1:'Cherry',
             field2:'50'
@@ -115,14 +115,14 @@ describe('Table with captionsInfo', () => {
         }}
       >
         <TableBodyRow
-          defaultOrder="0"
+          defaultOrder={0}
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
+          defaultOrder={1}
           data={{
             field1:'Cherry',
             field2:'50'
@@ -158,14 +158,14 @@ describe('Table with captionsInfo', () => {
         }}
       >
         <TableBodyRow
-          defaultOrder="0"
+          defaultOrder={0}
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
+          defaultOrder={1}
           data={{
             field1:'Cherry',
             field2:'50'
@@ -201,14 +201,14 @@ describe('Table with captionsInfo', () => {
         }}
       >
         <TableBodyRow
-          defaultOrder="0"
+          defaultOrder={0}
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
+          defaultOrder={1}
           data={{
             field1:'Cherry',
             field2:'50'
@@ -240,14 +240,12 @@ describe('Table with styleList', () => {
         styleList = "table--row-stripes"
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
@@ -281,14 +279,12 @@ describe('Table with styleList', () => {
         "table--responsive-flat"]}
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
@@ -328,14 +324,12 @@ describe('Table with styleList', () => {
         }}
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
@@ -370,14 +364,12 @@ describe('Table with addStatisticInfo', () => {
         addStatisticInfo = {['sum']}
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
@@ -417,14 +409,12 @@ describe('Table with wrapper', () => {
         }}
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
@@ -462,14 +452,12 @@ describe('The sorting feature of Table', () => {
         }
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
@@ -498,14 +486,12 @@ describe('The sorting feature of Table', () => {
         }
       >
         <TableBodyRow
-          defaultOrder="0"
           data={{
             field1:'Apple',
             field2:'20'
           }}
         />
         <TableBodyRow
-          defaultOrder="1"
           data={{
             field1:'Cherry',
             field2:'50'
